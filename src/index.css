@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/poppins-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./fonts/poppins-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('./fonts/poppins-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./fonts/poppins-700.woff2') format('woff2');
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0B0B0B; font-family: 'Poppins', system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: #FFCC00; text-decoration: none; }
+a:hover { color: #ffd633; }
+button { font-family: 'Poppins', system-ui, sans-serif; }
+input { font-family: 'Poppins', system-ui, sans-serif; }
+
+#dno-screen::-webkit-scrollbar { width: 0; }
+
+@keyframes dnoScan { 0%, 100% { top: 12%; } 50% { top: 84%; } }
+@keyframes dnoPulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 204, 0, .55); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 204, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 204, 0, 0); }
+}
+@keyframes dnoFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.dno-fade { animation: dnoFade .28s ease; }
+
+input[type=range].dno-sl {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 10px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #FFCC00 var(--fill, 20%), #000 var(--fill, 20%));
+  outline: none;
+}
+input[type=range].dno-sl::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #121212;
+  border: 2.5px solid #FFCC00;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .5);
+}
+input[type=range].dno-sl::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #121212;
+  border: 2.5px solid #FFCC00;
+}
+
+/* Focus-visible ring for the field wrapper — most inputs in this prototype
+   are read-only demo data, but a field should still visibly acknowledge a
+   tap/focus rather than sit dead, for a "real" premium feel. */
+.dno-field:focus-within,
+input.dno-field:focus,
+select.dno-field:focus {
+  border-color: #FFCC00 !important;
+  box-shadow: 0 0 0 3px rgba(255, 204, 0, .15);
+}
+input:focus, select:focus {
+  outline: none;
+}
+
+.hvc-glass {
+  background: linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,204,0,0.22);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 8px 24px rgba(0,0,0,.35);
+}
+
+.hvc-text-platinum {
+  background: linear-gradient(135deg, #F2F2F5 0%, #D6D8DE 45%, #9FA3AD 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
