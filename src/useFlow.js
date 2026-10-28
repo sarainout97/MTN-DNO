@@ -43,9 +43,9 @@ function chainOf(s) {
   // so the shared pre-chain only runs up to 'identity' for email login. For
   // 'other' login the branch is decided later, at 'intent', so its whole KYC
   // sequence (through the face-tail) is already known and stays in `pre`.
-  const pre = L === 'email' ? ['login', 'cred', 'whyEsim', 'beforeYouBegin', 'idType', 'identity']
-    : L === 'other' ? ['login', 'cred', 'otp', 'beforeYouBegin', 'idType', 'identity', ...FACE_TAIL]
-    : ['login', 'otp']
+  const pre = L === 'email' ? ['landing', 'cred', 'whyEsim', 'beforeYouBegin', 'idType', 'identity']
+    : L === 'other' ? ['landing', 'cred', 'otp', 'beforeYouBegin', 'idType', 'identity', ...FACE_TAIL]
+    : ['landing', 'otp']
   if (!br) return pre.concat(L === 'email' ? [] : ['intent'])
   const mid = {
     a1: FACE_TAIL,

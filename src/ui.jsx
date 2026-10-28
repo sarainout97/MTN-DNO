@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { NGN } from './data.js'
 import { IconCheck, IconFlagNG, IconFlagGH, IconFlagUG, IconChevronDown, IconSparkle, IconStar, IconHeart } from './icons.jsx'
+import { COLORS, RADII, SHADOWS, SURFACES, TYPE } from './theme.js'
 
 export const BADGE = {
   standard: { background: 'rgba(34,197,94,.18)', color: '#4ADE80' },
@@ -13,7 +14,26 @@ export const BADGE = {
 // (paired with Frame's thin top progress line).
 export function BackButton({ onClick }) {
   return (
-    <div onClick={onClick} style={{ width: 42, height: 42, borderRadius: '50%', border: '1px solid #2C2C2C', background: '#141414', color: '#FFCC00', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 18 }}>←</div>
+    <div
+      onClick={onClick}
+      style={{
+        width: 44,
+        height: 44,
+        borderRadius: '50%',
+        border: '1px solid rgba(255,255,255,.10)',
+        background: 'rgba(20,20,20,.55)',
+        color: COLORS.accent,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'pointer',
+        fontSize: 18,
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+      }}
+    >
+      ←
+    </div>
   )
 }
 
@@ -25,10 +45,14 @@ export function PrimaryButton({ label, onClick, style, disabled }) {
       onClick={disabled ? undefined : onClick}
       disabled={disabled}
       style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%', padding: 18, borderRadius: 16, border: 0,
-        background: disabled ? '#3A3A3A' : '#FFCC00', color: disabled ? '#7A7A7A' : '#000', font: "600 16px 'Poppins'",
+        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%', padding: '16px 18px', borderRadius: RADII.pill, border: 0,
+        background: disabled ? '#3A3A3A' : 'linear-gradient(180deg, #FFE066 0%, #FFCC00 52%, #E6B800 100%)',
+        color: disabled ? '#7A7A7A' : '#000',
+        font: TYPE.button,
         cursor: disabled ? 'default' : 'pointer', pointerEvents: disabled ? 'none' : 'auto',
-        boxShadow: disabled ? 'none' : '0 8px 20px rgba(255,204,0,.25)', transition: 'transform .12s ease', ...style,
+        boxShadow: disabled ? 'none' : `${SHADOWS.accent}, inset 0 1px 0 rgba(255,255,255,.38)`,
+        transition: 'transform .12s ease, filter .12s ease',
+        ...style,
       }}
     >{label}</button>
   )
@@ -37,7 +61,28 @@ export function PrimaryButton({ label, onClick, style, disabled }) {
 // The one secondary/outlined-button look (QR download/email, receipt actions …).
 export function SecondaryButton({ label, onClick, style }) {
   return (
-    <button onClick={onClick} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: 15, borderRadius: 16, background: 'transparent', color: '#fff', border: '1.5px solid #383838', font: "600 14px 'Poppins'", cursor: 'pointer', ...style }}>{label}</button>
+    <button
+      onClick={onClick}
+      style={{
+        flex: 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 6,
+        padding: '14px 16px',
+        borderRadius: RADII.pill,
+        background: 'rgba(255,255,255,.04)',
+        color: '#fff',
+        border: '1px solid rgba(255,255,255,.14)',
+        font: TYPE.buttonSm,
+        cursor: 'pointer',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        ...style,
+      }}
+    >
+      {label}
+    </button>
   )
 }
 
@@ -52,7 +97,7 @@ export function SecondaryButton({ label, onClick, style }) {
 // background), or its top edge shows as a visible seam over busy content.
 export function Cta({ label, onClick, skip, disabled }) {
   return (
-    <div style={{ position: 'sticky', bottom: 0, marginTop: 'auto', padding: '18px 20px max(20px, env(safe-area-inset-bottom))', background: 'linear-gradient(180deg, transparent 0%, rgba(11,11,11,.65) 45%, #0B0B0B 80%)' }}>
+    <div style={{ position: 'sticky', bottom: 0, marginTop: 'auto', padding: '18px 20px max(20px, env(safe-area-inset-bottom))', background: 'linear-gradient(180deg, transparent 0%, rgba(11,11,11,.72) 42%, #0B0B0B 82%)' }}>
       <PrimaryButton label={label} onClick={onClick} disabled={disabled} />
       {skip && (
         <div onClick={skip[1]} style={{ textAlign: 'center', font: "700 13.5px 'Poppins'", color: '#A6A6A6', textDecoration: 'underline', cursor: 'pointer', padding: '10px 4px 0' }}>{skip[0]}</div>
@@ -71,21 +116,21 @@ export function Cta({ label, onClick, skip, disabled }) {
 // today, since there's nothing left to center within. Horizontal padding is
 // deliberately modest (20px) — a real phone's own width is the canvas now,
 // not a shrunk desktop mockup, so content should use nearly all of it.
-export const Body = ({ children, gap = 22 }) => (
-  <div style={{ flex: 1, minHeight: 0, padding: '20px 20px 10px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap }}>{children}</div>
+export const Body = ({ children, gap = 22, justify = 'center' }) => (
+  <div style={{ flex: 1, minHeight: 0, padding: '24px 24px 12px', display: 'flex', flexDirection: 'column', justifyContent: justify, gap }}>{children}</div>
 )
-export const CBody = ({ children, gap = 22 }) => (
-  <div style={{ flex: 1, minHeight: 0, padding: '20px 20px 10px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap, textAlign: 'center', alignItems: 'center' }}>{children}</div>
+export const CBody = ({ children, gap = 22, justify = 'center' }) => (
+  <div style={{ flex: 1, minHeight: 0, padding: '24px 24px 12px', display: 'flex', flexDirection: 'column', justifyContent: justify, gap, textAlign: 'center', alignItems: 'center' }}>{children}</div>
 )
 export const H1 = ({ children, style }) => (
-  <div style={{ font: "700 29px/1.2 'Poppins'", letterSpacing: '-.3px', ...style }}>{children}</div>
+  <div style={{ font: TYPE.h1, letterSpacing: '-.3px', ...style }}>{children}</div>
 )
-export const Hl = ({ children }) => <span style={{ color: '#FFCC00' }}>{children}</span>
+export const Hl = ({ children }) => <span style={{ color: COLORS.accent }}>{children}</span>
 export const Sub = ({ children, style }) => (
-  <div style={{ font: "500 15px/1.55 'Poppins'", color: '#A6A6A6', ...style }}>{children}</div>
+  <div style={{ font: TYPE.sub, color: COLORS.subtext, ...style }}>{children}</div>
 )
-export const Card = ({ children, style, glass }) => (
-  <div className={glass ? 'hvc-glass' : undefined} style={{ background: '#000', border: glass ? undefined : '1px solid #292929', borderRadius: 18, padding: 18, boxShadow: glass ? undefined : '0 4px 20px rgba(0,0,0,.22)', ...style }}>{children}</div>
+export const Card = ({ children, style, glass, silver }) => (
+  <div className={glass ? 'hvc-glass' : undefined} style={{ background: glass ? undefined : silver ? SURFACES.silver : SURFACES.card, border: glass ? undefined : `1px solid ${silver ? 'rgba(0,0,0,.12)' : 'rgba(255,255,255,.08)'}`, borderRadius: RADII.card, padding: 18, boxShadow: glass ? undefined : SHADOWS.card, color: silver ? COLORS.silverText : undefined, ...style }}>{children}</div>
 )
 // `tone` picks the icon tile's color: 'green' for a completed/success step
 // (progress checklists — reading passport, verifying identity, installing),
@@ -120,8 +165,8 @@ export function Pill({ t }) {
 export function Qopt({ onClick, glyph, t, d, tone = 'dark' }) {
   const gold = tone === 'gold'
   return (
-    <div onClick={onClick} style={{ background: '#000', borderRadius: 18, padding: 18, display: 'flex', alignItems: 'center', gap: 14, cursor: onClick ? 'pointer' : 'default' }}>
-      <div style={{ width: 40, height: 40, minWidth: 40, borderRadius: 12, background: gold ? '#FFCC00' : '#000', color: gold ? '#000' : '#FFCC00', display: 'flex', alignItems: 'center', justifyContent: 'center', font: "700 16px 'Poppins'" }}>{glyph}</div>
+    <div onClick={onClick} style={{ background: SURFACES.card, borderRadius: RADII.card, padding: 18, display: 'flex', alignItems: 'center', gap: 14, cursor: onClick ? 'pointer' : 'default', border: '1px solid rgba(255,255,255,.08)', boxShadow: SHADOWS.card }}>
+      <div style={{ width: 40, height: 40, minWidth: 40, borderRadius: RADII.tile, background: gold ? COLORS.accent : '#000', color: gold ? '#000' : COLORS.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', font: "700 16px 'Poppins'" }}>{glyph}</div>
       <div style={{ flex: 1 }}>
         <div style={{ font: "700 15px 'Poppins'" }}>{t}</div>
         <div style={{ font: "600 12px 'Poppins'", color: '#A6A6A6', marginTop: 2 }}>{d}</div>
@@ -134,9 +179,11 @@ export function Qopt({ onClick, glyph, t, d, tone = 'dark' }) {
 // Number-choice tier card (standard / platinum / similar …) — star rating +
 // favorite heart + Reserve/Selected footer echo a premium number-marketplace
 // listing rather than a plain settings-style row.
-export function Tier({ sel, onClick, badge, badgeStyle, name, num, price }) {
+export function Tier({ sel, onClick, badge, badgeStyle, name, num, price, silver }) {
+  const text = silver ? COLORS.silverText : '#fff'
+  const muted = silver ? COLORS.silverMuted : '#A6A6A6'
   return (
-    <div onClick={onClick} style={{ border: `1.5px solid ${sel ? '#FFCC00' : '#292929'}`, borderRadius: 18, padding: 16, background: '#000', cursor: 'pointer', transition: 'border-color .15s ease', boxShadow: sel ? '0 0 24px rgba(255,204,0,.12)' : 'none' }}>
+    <div onClick={onClick} style={{ border: `1px solid ${sel ? 'rgba(255,204,0,.75)' : silver ? 'rgba(0,0,0,.14)' : 'rgba(255,255,255,.10)'}`, borderRadius: RADII.card, padding: 16, background: silver ? SURFACES.silver : SURFACES.card, cursor: 'pointer', transition: 'border-color .15s ease', boxShadow: sel ? '0 0 32px rgba(255,204,0,.10)' : SHADOWS.card, color: text }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', gap: 2, color: '#FFCC00' }}>
           {Array.from({ length: 5 }).map((_, i) => <IconStar key={i} filled style={{ width: 11, height: 11 }} />)}
@@ -145,29 +192,33 @@ export function Tier({ sel, onClick, badge, badgeStyle, name, num, price }) {
       </div>
       <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 10, marginTop: 10 }}>
         <div>
-          <div style={{ font: "700 20px 'Poppins'", letterSpacing: '.3px' }}>{num}</div>
-          <div style={{ font: "600 11.5px 'Poppins'", color: '#A6A6A6', marginTop: 2 }}>{name}</div>
+          <div style={{ font: "700 20px 'Poppins'", letterSpacing: '.3px', color: text }}>{num}</div>
+          <div style={{ font: "600 11.5px 'Poppins'", color: muted, marginTop: 2 }}>{name}</div>
         </div>
-        <IconHeart filled={sel} style={{ width: 18, height: 18, minWidth: 18, color: sel ? '#FFCC00' : '#6E6A60' }} />
+        <IconHeart filled={sel} style={{ width: 18, height: 18, minWidth: 18, color: sel ? '#FFCC00' : silver ? COLORS.silverMuted : '#6E6A60' }} />
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8, marginTop: 14, paddingTop: 12, borderTop: '1px solid #232323' }}>
-        <span style={{ font: "700 13px 'Poppins'", color: '#FFCC00' }}>{price}</span>
-        <span style={{ font: "700 11.5px 'Poppins'", padding: '7px 16px', borderRadius: 10, background: sel ? 'rgba(255,204,0,.14)' : '#FFCC00', color: sel ? '#FFCC00' : '#000', border: sel ? '1px solid rgba(255,204,0,.4)' : 'none' }}>{sel ? 'Selected' : 'Reserve'}</span>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8, marginTop: 14, paddingTop: 12, borderTop: `1px solid ${silver ? 'rgba(0,0,0,.12)' : '#232323'}` }}>
+        <span style={{ font: "700 13px 'Poppins'", color: silver ? text : '#FFCC00' }}>{price}</span>
+        {silver
+          ? <span style={{ font: "700 11.5px 'Poppins'", padding: '7px 16px', borderRadius: 10, background: sel ? '#141414' : 'transparent', color: sel ? '#fff' : '#141414', border: sel ? 'none' : '1.5px solid rgba(0,0,0,.4)' }}>{sel ? 'Selected' : 'Reserve'}</span>
+          : <span style={{ font: "700 11.5px 'Poppins'", padding: '7px 16px', borderRadius: 10, background: sel ? 'rgba(255,204,0,.14)' : '#FFCC00', color: sel ? '#FFCC00' : '#000', border: sel ? '1px solid rgba(255,204,0,.4)' : 'none' }}>{sel ? 'Selected' : 'Reserve'}</span>}
       </div>
     </div>
   )
 }
 
-export function PlanCard({ name, per, price, tag, sel, onClick }) {
+export function PlanCard({ name, per, price, tag, sel, onClick, silver }) {
+  const text = silver ? COLORS.silverText : '#fff'
+  const muted = silver ? COLORS.silverMuted : '#A6A6A6'
   return (
-    <div onClick={onClick} style={{ border: `1.5px solid ${sel ? '#FFCC00' : '#383838'}`, borderRadius: 18, background: '#000', padding: 18, position: 'relative', cursor: 'pointer', transition: 'border-color .15s ease' }}>
-      {tag && <span style={{ position: 'absolute', top: -10, right: 16, background: '#FFCC00', color: '#000', font: "700 10px 'Poppins'", letterSpacing: '.8px', padding: '5px 10px', borderRadius: 999 }}>{tag}</span>}
+    <div onClick={onClick} style={{ border: `1px solid ${sel ? 'rgba(255,204,0,.75)' : silver ? 'rgba(0,0,0,.14)' : 'rgba(255,255,255,.10)'}`, borderRadius: RADII.card, background: silver ? SURFACES.silver : SURFACES.card, padding: 18, position: 'relative', cursor: 'pointer', transition: 'border-color .15s ease', boxShadow: SHADOWS.card, color: text }}>
+      {tag && <span style={{ position: 'absolute', top: -10, right: 16, background: silver ? '#141414' : '#FFCC00', color: silver ? '#fff' : '#000', font: "700 10px 'Poppins'", letterSpacing: '.8px', padding: '5px 10px', borderRadius: 999 }}>{tag}</span>}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <div style={{ flex: 1 }}>
-          <div style={{ font: "700 16px 'Poppins'" }}>{name}</div>
-          <div style={{ font: "600 12px 'Poppins'", color: '#A6A6A6', marginTop: 2 }}>{per}</div>
+          <div style={{ font: "700 16px 'Poppins'", color: text }}>{name}</div>
+          <div style={{ font: "600 12px 'Poppins'", color: muted, marginTop: 2 }}>{per}</div>
         </div>
-        <div style={{ font: "700 22px 'Poppins'" }}>{NGN(price)}</div>
+        <div style={{ font: "700 22px 'Poppins'", color: text }}>{NGN(price)}</div>
       </div>
     </div>
   )
@@ -177,7 +228,7 @@ export function Otp({ arr, f }) {
   return (
     <div style={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
       {arr.map((c, i) => (
-        <div key={i} style={{ width: 48, height: 58, border: `1.5px solid ${i < f ? '#FFCC00' : '#383838'}`, borderRadius: 16, background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', font: "700 24px 'Poppins'", color: i < f ? '#fff' : '#6E6A60' }}>{c}</div>
+        <div key={i} style={{ width: 48, height: 58, border: `1px solid ${i < f ? 'rgba(255,204,0,.75)' : 'rgba(255,255,255,.14)'}`, borderRadius: RADII.field, background: SURFACES.field, display: 'flex', alignItems: 'center', justifyContent: 'center', font: "700 24px 'Poppins'", color: i < f ? '#fff' : COLORS.muted, backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)' }}>{c}</div>
       ))}
     </div>
   )
@@ -218,8 +269,8 @@ export function Ring({ e, tone = 'gold' }) {
 export function Input({ label, val }) {
   return (
     <>
-      <span style={{ font: "700 12px 'Poppins'", letterSpacing: '.8px', color: '#A6A6A6', textTransform: 'uppercase', display: 'block', marginBottom: 7 }}>{label}</span>
-      <input readOnly value={val} className="dno-field" style={{ width: '100%', padding: 16, border: '1.5px solid #383838', borderRadius: 16, font: "600 16px 'Poppins'", background: '#000', color: '#fff' }} />
+      <span style={{ font: TYPE.label, letterSpacing: '.8px', color: COLORS.subtext, textTransform: 'uppercase', display: 'block', marginBottom: 7 }}>{label}</span>
+      <input readOnly value={val} className="dno-field" style={{ width: '100%', padding: 16, border: '1px solid rgba(255,255,255,.14)', borderRadius: RADII.field, font: TYPE.button, background: SURFACES.field, color: '#fff', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)' }} />
     </>
   )
 }
@@ -251,13 +302,13 @@ export function Select({ label, value, onChange, options }) {
   const [open, setOpen] = useState(false)
   return (
     <div style={{ position: 'relative' }}>
-      <span style={{ font: "700 12px 'Poppins'", letterSpacing: '.8px', color: '#A6A6A6', textTransform: 'uppercase', display: 'block', marginBottom: 7 }}>{label}</span>
+      <span style={{ font: TYPE.label, letterSpacing: '.8px', color: COLORS.subtext, textTransform: 'uppercase', display: 'block', marginBottom: 7 }}>{label}</span>
       <div
         onClick={() => setOpen(v => !v)}
-        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, width: '100%', padding: 16, border: '1.5px solid #FFCC00', borderRadius: 16, background: '#000', cursor: 'pointer' }}
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, width: '100%', padding: 16, border: '1px solid rgba(255,204,0,.7)', borderRadius: RADII.field, background: SURFACES.field, cursor: 'pointer', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)' }}
       >
         <span style={{ font: "600 16px 'Poppins'", color: '#fff' }}>{options[value]}</span>
-        <IconChevronDown style={{ width: 16, height: 16, color: '#FFCC00', flex: 'none', transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .15s ease' }} />
+        <IconChevronDown style={{ width: 16, height: 16, color: COLORS.accent, flex: 'none', transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .15s ease' }} />
       </div>
       {open && (
         <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, marginTop: 6, background: '#000', border: '1.5px solid #383838', borderRadius: 16, overflow: 'hidden', zIndex: 10, boxShadow: '0 12px 30px rgba(0,0,0,.5)' }}>
@@ -294,19 +345,24 @@ export function OptRow({ on, glyph, t, d, onClick }) {
   )
 }
 
-export function SumRow({ t, v, strong }) {
+// `dark` flips the text palette for use on a light background (e.g. the
+// silver card) — everything else about the row stays the same.
+export function SumRow({ t, v, strong, dark }) {
+  const border = dark ? 'rgba(0,0,0,.12)' : '#2C2C2C'
+  const label = dark ? (strong ? COLORS.silverText : COLORS.silverMuted) : (strong ? '#fff' : '#CFCFCF')
+  const value = strong ? (dark ? COLORS.silverText : '#FFCC00') : (dark ? COLORS.silverText : undefined)
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '9px 0', ...(strong ? { font: "700 14.5px 'Poppins'" } : { borderBottom: '1px solid #2C2C2C', font: "600 13.5px 'Poppins'" }) }}>
-      <span style={{ color: strong ? '#fff' : '#CFCFCF' }}>{t}</span>
-      <b style={strong ? { color: '#FFCC00' } : {}}>{v}</b>
+    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '9px 0', ...(strong ? { font: "700 14.5px 'Poppins'" } : { borderBottom: `1px solid ${border}`, font: "600 13.5px 'Poppins'" }) }}>
+      <span style={{ color: label }}>{t}</span>
+      <b style={value ? { color: value } : {}}>{v}</b>
     </div>
   )
 }
 
 export function Divider({ t }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 10, font: "600 11.5px 'Poppins'", color: '#6E6A60', letterSpacing: 1 }}>
-      <span style={{ flex: 1, height: 1, background: '#2C2C2C' }} />{t}<span style={{ flex: 1, height: 1, background: '#2C2C2C' }} />
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10, font: "600 11.5px 'Poppins'", color: COLORS.muted, letterSpacing: 1 }}>
+      <span style={{ flex: 1, height: 1, background: 'rgba(255,255,255,.10)' }} />{t}<span style={{ flex: 1, height: 1, background: 'rgba(255,255,255,.10)' }} />
     </div>
   )
 }
@@ -341,20 +397,20 @@ export function PhoneField({ label, val, code = '+234', placeholder, confirmed }
   const [country, setCountry] = useState(COUNTRIES.find(c => c.code === code) || COUNTRIES[0])
   return (
     <div style={{ position: 'relative' }}>
-      {label && <span style={{ font: "700 12px 'Poppins'", letterSpacing: '.8px', color: '#A6A6A6', textTransform: 'uppercase', display: 'block', marginBottom: 7 }}>{label}</span>}
-      <div className="dno-field" style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '0 16px', border: '1.5px solid #383838', borderRadius: 16, background: '#000' }}>
+      {label && <span style={{ font: TYPE.label, letterSpacing: '.8px', color: COLORS.subtext, textTransform: 'uppercase', display: 'block', marginBottom: 7 }}>{label}</span>}
+      <div className="dno-field" style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '0 16px', border: '1px solid rgba(255,255,255,.14)', borderRadius: RADII.field, background: SURFACES.field, backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)' }}>
         <span
           onClick={() => setOpen(v => !v)}
-          style={{ display: 'flex', alignItems: 'center', gap: 7, paddingRight: 12, borderRight: '1px solid #3A3A3A', font: "600 16px 'Poppins'", color: '#fff', cursor: 'pointer' }}
+          style={{ display: 'flex', alignItems: 'center', gap: 7, paddingRight: 12, borderRight: '1px solid rgba(255,255,255,.12)', font: TYPE.button, color: '#fff', cursor: 'pointer' }}
         >
           <country.Flag style={{ width: 21, height: 15 }} />{country.code}
-          <span style={{ fontSize: 9, color: '#6E6A60', transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .15s ease' }}>▾</span>
+          <span style={{ fontSize: 9, color: COLORS.muted, transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .15s ease' }}>▾</span>
         </span>
         <input
           readOnly
           value={val}
           placeholder={placeholder ? val : undefined}
-          style={{ flex: 1, minWidth: 0, padding: '16px 0', border: 0, background: 'transparent', font: "600 16px 'Poppins'", color: placeholder ? '#6E6A60' : '#fff', outline: 'none' }}
+          style={{ flex: 1, minWidth: 0, padding: '16px 0', border: 0, background: 'transparent', font: TYPE.button, color: placeholder ? COLORS.muted : '#fff', outline: 'none' }}
         />
         {confirmed && (
           <div style={{ width: 22, height: 22, minWidth: 22, borderRadius: '50%', background: '#22C55E', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -363,12 +419,12 @@ export function PhoneField({ label, val, code = '+234', placeholder, confirmed }
         )}
       </div>
       {open && (
-        <div style={{ position: 'absolute', top: '100%', left: 0, marginTop: 6, width: 190, background: '#000', border: '1.5px solid #383838', borderRadius: 16, overflow: 'hidden', zIndex: 10, boxShadow: '0 12px 30px rgba(0,0,0,.5)' }}>
+        <div style={{ position: 'absolute', top: '100%', left: 0, marginTop: 6, width: 190, background: SURFACES.card, border: '1px solid rgba(255,255,255,.14)', borderRadius: RADII.card, overflow: 'hidden', zIndex: 10, boxShadow: SHADOWS.card, backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)' }}>
           {COUNTRIES.map(c => (
             <div
               key={c.code}
               onClick={() => { setCountry(c); setOpen(false) }}
-              style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '13px 16px', cursor: 'pointer', background: c.code === country.code ? 'rgba(255,204,0,.1)' : 'transparent' }}
+              style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '13px 16px', cursor: 'pointer', background: c.code === country.code ? 'rgba(255,204,0,.10)' : 'transparent' }}
             >
               <c.Flag style={{ width: 21, height: 15 }} />
               <span style={{ flex: 1, font: "600 14px 'Poppins'" }}>{c.name}</span>
@@ -415,8 +471,8 @@ export function Keypad() {
 // they're tappable without implying a half-finished radio choice.
 export function Radio({ sel, onClick, glyph, t, d }) {
   return (
-    <div onClick={onClick} style={{ border: `1.5px solid ${sel ? '#22C55E' : '#2C2C2C'}`, borderRadius: 16, background: '#000', padding: 16, display: 'flex', alignItems: 'center', gap: 14, cursor: 'pointer' }}>
-      <div style={{ width: 38, height: 38, minWidth: 38, borderRadius: 12, background: '#000', color: '#fff', border: '1px solid #383838', display: 'flex', alignItems: 'center', justifyContent: 'center', font: "700 15px 'Poppins'" }}>{glyph}</div>
+    <div onClick={onClick} style={{ border: `1px solid ${sel ? 'rgba(34,197,94,.8)' : 'rgba(255,255,255,.10)'}`, borderRadius: RADII.card, background: SURFACES.card, padding: 16, display: 'flex', alignItems: 'center', gap: 14, cursor: 'pointer', boxShadow: SHADOWS.card }}>
+      <div style={{ width: 38, height: 38, minWidth: 38, borderRadius: RADII.tile, background: '#000', color: '#fff', border: '1px solid rgba(255,255,255,.14)', display: 'flex', alignItems: 'center', justifyContent: 'center', font: "700 15px 'Poppins'" }}>{glyph}</div>
       <div style={{ flex: 1 }}>
         <div style={{ font: "700 14.5px 'Poppins'" }}>{t}</div>
         {d && <div style={{ font: "600 12px 'Poppins'", color: '#A6A6A6', marginTop: 2 }}>{d}</div>}

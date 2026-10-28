@@ -137,6 +137,46 @@ export function IconHome({ style, className }) {
   )
 }
 
+export function IconPlay({ style, className }) {
+  return (
+    <svg viewBox="0 0 24 24" style={style} className={className} {...base} strokeLinejoin="round" aria-hidden="true">
+      <path d="M6.5 4.5v15l13-7.5-13-7.5z" />
+    </svg>
+  )
+}
+
+export function IconHelp({ style, className }) {
+  return (
+    <svg viewBox="0 0 24 24" style={style} className={className} {...base} aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M9.4 9.3a2.6 2.6 0 0 1 5.1.7c0 1.7-2.5 2-2.5 3.8" />
+      <path d="M12 17.2v.1" />
+    </svg>
+  )
+}
+
+export function IconMore({ style, className }) {
+  return (
+    <svg viewBox="0 0 24 24" style={style} className={className} fill="currentColor" aria-hidden="true">
+      <circle cx="5" cy="12" r="1.7" />
+      <circle cx="12" cy="12" r="1.7" />
+      <circle cx="19" cy="12" r="1.7" />
+    </svg>
+  )
+}
+
+// 2×2 dot grid — the floating dock button's "apps" glyph.
+export function IconGrid({ style, className }) {
+  return (
+    <svg viewBox="0 0 24 24" style={style} className={className} fill="currentColor" aria-hidden="true">
+      <circle cx="8" cy="8" r="2.6" />
+      <circle cx="16" cy="8" r="2.6" />
+      <circle cx="8" cy="16" r="2.6" />
+      <circle cx="16" cy="16" r="2.6" />
+    </svg>
+  )
+}
+
 export function IconStar({ style, className, filled }) {
   return (
     <svg viewBox="0 0 24 24" style={style} className={className} fill={filled ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -255,6 +295,16 @@ export function IconSunglasses({ style, className }) {
       <circle cx="6.5" cy="13" r="3.2" />
       <circle cx="17.5" cy="13" r="3.2" />
       <path d="M9.7 12h4.6M3.3 10.5L1.5 8M20.7 10.5L22.5 8" />
+    </svg>
+  )
+}
+
+// Single-path "G" mark (not the official 4-color logo) so it can render
+// as a plain white glyph, matching the Apple/Facebook icons beside it.
+export function IconGoogle({ style, className }) {
+  return (
+    <svg viewBox="0 0 488 512" style={style} className={className} fill="currentColor" aria-hidden="true">
+      <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" />
     </svg>
   )
 }

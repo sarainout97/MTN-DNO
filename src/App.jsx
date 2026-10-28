@@ -3,6 +3,7 @@ import { useFlow } from './useFlow.js'
 import Screen from './screens.jsx'
 import { IconBattery } from './icons.jsx'
 import heroBg from './assets/welcome-bg.png'
+import { COLORS } from './theme.js'
 
 const PRESETS = [
   ['a1', 'A1 · New + NIN'],
@@ -51,6 +52,19 @@ function ScreenContent({ flow, mockup }) {
 
   return (
     <>
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 0,
+          background: `
+            radial-gradient(1200px 620px at 18% -12%, rgba(255,204,0,.18) 0%, rgba(255,204,0,0) 60%),
+            radial-gradient(820px 520px at 86% 22%, rgba(255,255,255,.06) 0%, rgba(255,255,255,0) 58%),
+            radial-gradient(980px 720px at 60% 112%, rgba(255,204,0,.10) 0%, rgba(255,204,0,0) 62%),
+            linear-gradient(180deg, ${COLORS.bg} 0%, #050505 100%)
+          `,
+        }}
+      />
       {isLanding && (
         <>
           {/* welcome-bg.png is a portrait composition purpose-built for this

@@ -5,7 +5,7 @@ export const GATES = ['Start', 'Verify', 'Number', 'Plan', 'Pay', 'Live']
 
 // Which gate each screen sits under (progress bar).
 export const GIDX = {
-  login: 0, cred: 0, otp: 1, identity: 1, scan: 1, intent: 2, number: 2,
+  landing: 0, cred: 0, otp: 1, identity: 1, scan: 1, intent: 2, number: 2,
   plan: 3, diy: 3, addons: 3, gpick: 3, pay: 4, activate: 5, done: 5,
   whyEsim: 1, beforeYouBegin: 1, idType: 1, readingPassport: 1, reviewPassport: 1,
   faceVerification: 1, verifyingIdentity: 1, identityVerified: 1,
@@ -14,7 +14,7 @@ export const GIDX = {
 
 // Representative screen each gate jumps to when tapped — lets testers open
 // any step directly, even ones not yet reached in the current session.
-export const GATE_SCREEN = ['login', 'identity', 'number', 'plan', 'pay', 'activate']
+export const GATE_SCREEN = ['landing', 'identity', 'number', 'plan', 'pay', 'activate']
 
 // Branches: a1 new customer w/ NIN · a2 visitor (no NIN, visa-based) ·
 // b existing MTN → eSIM · c2 add line.
